@@ -46,14 +46,17 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 //Add an entry to overlays, assuming it exists
 /mob/living/carbon/human/proc/apply_layer(cache_index)
-	if((. = overlays_standing[cache_index]))
-		add_overlay(.)
+	var/overlay_slot = overlays_standing[cache_index]
+	. = overlay_slot
+	if(overlay_slot)
+		// `add_overlay()` will mutate lists you pass it.
+		add_overlay(islist(overlay_slot) ? overlay_slot:Copy() : overlay_slot)
 
 //Remove an entry from overlays, and from the list
 /mob/living/carbon/human/proc/remove_layer(cache_index)
 	var/I = overlays_standing[cache_index]
 	if(I)
-		cut_overlay(I)
+		cut_overlay(islist(I) ? I:Copy() : I)
 		overlays_standing[cache_index] = null
 
 /mob/living/carbon/human

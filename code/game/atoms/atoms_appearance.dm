@@ -54,7 +54,7 @@
 				managed_overlays = new_overlays[1]
 			else
 				managed_overlays = new_overlays
-			add_overlay(new_overlays)
+			add_overlay(new_overlays.Copy())
 		. |= UPDATE_OVERLAYS
 
 	. |= SEND_SIGNAL(src, COMSIG_ATOM_UPDATED_ICON, updates, .)
